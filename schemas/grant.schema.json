@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://adp.dev/schemas/grant-0.2.json",
+  "title": "ADP 0.2 Grant",
+  "type": "object",
+  "required": ["v", "iss", "sub", "prn", "iat", "exp", "depth", "permissions", "resources", "jti"],
+  "properties": {
+    "v": {"const": "ADP-0.2"},
+    "iss": {"type": "string", "minLength": 1},
+    "sub": {"type": "string", "minLength": 1},
+    "prn": {"type": "string", "minLength": 1},
+    "iat": {"type": "integer", "minimum": 0},
+    "exp": {"type": "integer", "minimum": 1},
+    "depth": {"type": "integer", "minimum": 0},
+    "permissions": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "resources": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "purpose": {"type": ["string", "null"]},
+    "parent": {"type": ["string", "null"]},
+    "jti": {"type": "string", "minLength": 1},
+    "approval_required": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "budget": {
+      "type": ["object", "null"],
+      "required": ["currency", "limit"],
+      "properties": {
+        "currency": {"type": "string", "minLength": 1},
+        "limit": {"type": "number", "minimum": 0},
+        "spent": {"type": "number", "minimum": 0},
+        "chain": {
+          "description": "Ancestor grants, root first, as [token_id, limit] pairs. Lets a verifier debit every ancestor budget without having seen the parent grant.",
+          "type": "array",
+          "maxItems": 16,
+          "items": {
+            "type": "array",
+            "prefixItems": [{"type": "string", "minLength": 1}, {"type": "number", "minimum": 0}],
+            "minItems": 2, "maxItems": 2
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

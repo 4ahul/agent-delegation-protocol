@@ -1,0 +1,14 @@
+.git
+.github
+.venv
+__pycache__
+*.pyc
+.pytest_cache
+.env
+*.db
+*.db-wal
+*.db-shm
+adp-key.json
+tests
+examples
+docs

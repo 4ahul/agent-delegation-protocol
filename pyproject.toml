@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "agent-delegation-protocol"
+version = "0.4.0"
+description = "Reference implementation of the Agent Delegation Protocol (ADP)"
+readme = "README.md"
+requires-python = ">=3.11"
+license = "Apache-2.0"
+license-files = ["LICENSE"]
+keywords = ["agents", "authorization", "delegation", "mcp", "a2a", "capability", "gateway"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Developers",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Security",
+  "Topic :: Internet :: WWW/HTTP :: HTTP Servers",
+]
+dependencies = [
+  "cryptography>=44,<47",
+  "fastapi>=0.115,<1",
+  "uvicorn[standard]>=0.34,<1",
+  "httpx>=0.28,<1",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8,<9"]
+
+[project.scripts]
+adp = "adp.cli:main"
+
+[tool.setuptools]
+packages = ["adp", "server"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+addopts = "-q"

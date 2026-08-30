@@ -1,0 +1,27 @@
+services:
+  adp:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      ADP_ADMIN_TOKEN: ${ADP_ADMIN_TOKEN:?set ADP_ADMIN_TOKEN in .env}
+      ADP_ROUTES: "property=http://property-api:9000,property.read,mumbai://rr,1"
+      ADP_DB: /data/adp.db
+    volumes:
+      - adp-data:/data
+    restart: unless-stopped
+    depends_on:
+      - property-api
+
+  property-api:
+    image: python:3.12-slim
+    working_dir: /app
+    command: python -m http.server 9000 --bind 0.0.0.0
+    volumes:
+      - ./examples/upstream:/app:ro
+    expose:
+      - "9000"
+    restart: unless-stopped
+
+volumes:
+  adp-data:

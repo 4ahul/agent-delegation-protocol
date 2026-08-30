@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Environments
+.venv/
+venv/
+.env
+
+# ADP runtime state and keys — never commit these
+*.db
+*.db-wal
+*.db-shm
+adp-key.json
+*-key.json
+
+# Editors / OS
+.idea/
+.vscode/
+.DS_Store
+
+# Local agent config
+.claude/settings.local.json
